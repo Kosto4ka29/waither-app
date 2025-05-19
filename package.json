@@ -1,41 +1,59 @@
 {
-  "name": "task-runner",
-  "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "init-project": "npm install && npm-run-all init:*",
-
-    "init:dirs": "mkdirp sass css vendor images js",
-    "init:files": "touch README.md index.html sass/style.scss js/script.js",
-    "init:gitignore": " curl https://raw.githubusercontent.com/github/gitignore/master/Node.gitignore -o .gitignore",
-    
-
-    "test": "npm run test:html",
-    "test:html": "html-validate *.html",
-
-    "build": "npm-run-all build:* test",
-    "build:sass": "sass --style=compressed --no-source-map sass:css",
-    "build:autoprefixer": "postcss css/*.css --use autoprefixer -d css",
-    "build-dev": "npm-run-all build-dev:sass build:autoprefixer",
-    "build-dev:sass": "sass --style=expanded --source-map sass:css",
-
-
-    "watch":"npm-run-all build build-dev -p watch:*",
-    "watch:browsersync": "browser-sync start --server --files \"css/*.css\" \"*.html\"",
-    "watch:sassprefixer": "onchange sass/*.scss -- npm run build-dev"
+  "name": "waiter-app",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@reduxjs/toolkit": "^2.5.1",
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.2.0",
+    "@testing-library/user-event": "^13.5.0",
+    "bootstrap": "5.3.1",
+    "cors": "^2.8.5",
+    "json-server": "0.17.3",
+    "react": "^18.0.0",
+    "react-bootstrap": "2.8.0",
+    "react-dom": "^18.0.0",
+    "react-redux": "8.1.2",
+    "react-router-dom": "6.15.0",
+    "react-scripts": "^5.0.1",
+    "redux": "4.2.1",
+    "redux-devtools-extension": "2.13.9",
+    "redux-thunk": "2.4.2",
+    "sass": "1.65.1",
+    "web-vitals": "^2.1.4"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
+  "scripts": {
+    "start": "npm-run-all -p start:*",
+    "start:react": "react-scripts start",
+    "start:server": "json-server --port 3131 --cors --delay 250 --watch public/db/app.json --routes public/db/routes.json",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
   "devDependencies": {
-    "autoprefixer": "^10.2.4",
-    "browser-sync": "^3.0.3",
-    "mkdirp": "^3.0.1",
-    "npm-run-all": "^4.1.5",
-    "onchange": "^7.1.0",
-    "postcss": "^8.2.6",
-    "postcss-cli": "^8.3.1",
-    "sass": "^1.81.0"
+    "@babel/core": "^7.26.9",
+    "@babel/preset-env": "^7.26.9",
+    "@babel/preset-react": "^7.26.3",
+    "babel-loader": "^9.2.1",
+    "npm-run-all": "^4.1.5"
   }
 }
